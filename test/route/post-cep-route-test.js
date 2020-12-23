@@ -12,9 +12,9 @@ describe('POST /api/v1/cep', function () {
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function (err, res) {
-        assert.equal(res.body[0]._id, 2)
-        assert.equal(res.body[0].cidade, 'Maringá')
-        assert.equal(res.body[0].cep, '121212312')
+        assert.equal(res.body._id, 2)
+        assert.equal(res.body.cidade, 'Maringá')
+        assert.equal(res.body.cep, '121212312')
         if (err) return done(err)
         done()
       })
