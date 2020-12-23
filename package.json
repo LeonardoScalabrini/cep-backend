@@ -1,0 +1,18 @@
+{
+  "name": "cep-backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "nyc --all --reporter=html mocha test/ --recursive --reporter progress"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0",
+    "mocha": "^8.2.1",
+    "chai": "^4.2.0"
+  }
+}
