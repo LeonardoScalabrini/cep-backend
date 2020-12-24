@@ -1,5 +1,35 @@
 # cep-backend
 
-# MongoDB
+## Dev quick start ##
 
-Executar comando docker-compose up para iniciar o MongoDB
+1. Install packages
+````
+npm install
+````
+
+2. Install MongoDB
+````
+docker-compose up
+````
+
+3. Start locally
+````
+npm start
+````
+
+## Run the tests ##
+
+1. Install packages
+````
+npm install
+````
+
+2. Install MongoDB
+````
+docker-compose up
+````
+
+3. Run tests
+````
+npm test
+````

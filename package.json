@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "test": "nyc --all --reporter=html mocha test/ --recursive --reporter progress"
+    "start": "NODE_ENV=dev node server.js",
+    "test": "NODE_ENV=test nyc --all --reporter=html mocha test/ --recursive --reporter progress"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
