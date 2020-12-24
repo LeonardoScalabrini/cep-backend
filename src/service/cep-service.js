@@ -3,6 +3,7 @@ const CepRepository = require('../repository/cep-repository')
 const RequestValidator = require('../composite/validator/request-validator')
 const CepValidator = require('../composite/validator/cep-validator')
 const RepetitionPairValidator = require('../composite/validator/repetition-pair-validator')
+const CepFactory = require('../factory/cep-factory')
 
 module.exports = new class CepService {
 
@@ -16,6 +17,6 @@ module.exports = new class CepService {
       .next(CepValidator)
       .next(RepetitionPairValidator)
       .validate(req)
-    return CepRepository.create(req)
+    return CepRepository.create(CepFactory.factory(req))
   }
 }()
