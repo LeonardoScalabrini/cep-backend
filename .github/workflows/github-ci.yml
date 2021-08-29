@@ -24,9 +24,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - uses: actions/checkout@v2
-    - name: Test
-      run: npm test
+    - run: npm test
     - uses: actions/checkout@v2
     - name: Stop containers
       run: docker-compose -f docker-compose.yml down
