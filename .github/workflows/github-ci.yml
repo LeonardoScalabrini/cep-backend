@@ -25,5 +25,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - name: Stop containers
-          if: always()
-          run: docker-compose -f "docker-compose.yml" down
+      run: docker-compose -f "docker-compose.yml" down
