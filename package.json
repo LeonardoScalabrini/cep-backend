@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=dev node server.js",
-    "test": "NODE_ENV=test nyc --all --reporter=html mocha test/ --recursive --reporter progress"
+    "test": "NODE_ENV=test nyc --all --reporter=html mocha test/ --exit --recursive --reporter progress"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
