@@ -13,10 +13,10 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
-    - uses: actions/checkout@v2
+    - name: To folder
+      run: cd ../..
     - name: Start containers
-    - run: cd ../..
-    - run: docker-compose -f "docker-compose.yml" up -d --build
+      run: docker-compose -f "docker-compose.yml" up -d --build
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
@@ -26,6 +26,5 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - uses: actions/checkout@v2
     - name: Stop containers
       run: docker-compose -f "docker-compose.yml" down
