@@ -33,9 +33,9 @@ jobs:
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       with:
-        projectBaseDir: /github/workspace/cep-backend/coverage
+        projectBaseDir: /home/runner/work/cep-backend/cep-backend
         args: >
-          -Dsonar.javascript.coverage.reportPaths=lcov.info
+          -Dsonar.javascript.coverage.reportPaths=coverage/lcov.info
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
