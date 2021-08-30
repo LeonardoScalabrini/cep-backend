@@ -37,7 +37,6 @@ jobs:
         fetch-depth: 0
     - name: SonarQube Scan
       run: npm run sonar
-      uses: actions/checkout@v2
     - name: SonarQube Quality Gate check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 5
