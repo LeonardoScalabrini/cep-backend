@@ -22,7 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
+    - run: npm i sonarqube-scanner
+    - run: npm ci
     - run: npm test
     - uses: actions/checkout@v2
     - name: Stop containers
