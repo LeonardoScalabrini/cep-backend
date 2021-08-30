@@ -33,7 +33,6 @@ jobs:
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       with:
-        projectBaseDir: app/src
         args: >
           -Dsonar.javascript.coverage.reportPaths=/home/runner/work/cep-backend/cep-backend/coverage/lcov.info
       env:
