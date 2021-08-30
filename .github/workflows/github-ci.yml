@@ -22,10 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install -g sonarqube-scanner
     - run: npm ci
     - run: npm test
-    - run: cat /home/runner/work/cep-backend/cep-backend/coverage/lcov.info
     - uses: actions/checkout@v2
     - name: Stop containers
       run: docker-compose -f docker-compose.yml down
@@ -33,7 +31,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: SonarQube Scan
-      run: npm run sonar
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: app/src
+        args: >
+          -Dsonar.javascript.coverage.reportPaths=/home/runner/work/cep-backend/cep-backend/coverage/lcov.info
     - name: SonarQube Quality Gate check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 5
