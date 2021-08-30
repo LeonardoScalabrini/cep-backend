@@ -25,6 +25,8 @@ jobs:
     - run: npm install -g sonarqube-scanner
     - run: npm ci
     - run: npm test
+    - run: cd ../..
+    - run: ls
     - uses: actions/checkout@v2
     - name: Stop containers
       run: docker-compose -f docker-compose.yml down
