@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,16 +31,15 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+  code:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      with:
-        args: >
-          -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-          -Dsonar.tests=test/
-          -Dsonar.verbose=true
     - name: SonarQube Quality Gate check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 5
