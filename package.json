@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=dev node server.js",
-    "test": "NODE_ENV=test nyc --all --reporter=lcov mocha test/ --exit --recursive --reporter progress",
-    "sonar": "sonar-scanner"
+    "test": "NODE_ENV=test nyc --all --check-coverage --lines=95 mocha test/ --recursive --reporter progress --exit"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -18,7 +17,6 @@
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "sonarqube-scanner": "^2.8.1",
     "supertest": "^6.0.1"
   }
 }
