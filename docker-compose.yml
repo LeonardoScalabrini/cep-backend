@@ -8,8 +8,25 @@ services:
     volumes:
       - /Docker/Volumes/MongoDB:/data/db
     networks:
-      - mongo-compose-network
+      - cep-backend-network
+  node:
+    image: node
+    build: .
+    command: npm start
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "9090:9090"
+    environment:
+      - PORT=${PORT}
+      - STRING_CONNECTION_DB=${STRING_CONNECTION_DB}
+    depends_on:
+      - mongo
+    networks:
+      - cep-backend-network
 
 networks:
-  mongo-compose-network:
+  cep-backend-network:
     driver: bridge
