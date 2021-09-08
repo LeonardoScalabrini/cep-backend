@@ -24,7 +24,7 @@ resource "google_compute_address" "static" {
 }
 
 data "google_compute_image" "container-optimized-image" {
-  family = "cos-77-lts"
+  family = "cos-81-lts"
   project = "cos-cloud"
 }
 
