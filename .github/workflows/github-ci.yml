@@ -56,11 +56,6 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
       env:
-        TF_VAR_project_id: ${{ secrets.CLOUD_PROJECT_ID }}
-        TF_VAR_private_key_id: ${{ secrets.CLOUD_PROJECT_KEY_ID }}
-        TF_VAR_private_key: ${{ secrets.CLOUD_PROJECT_KEY }}
-        TF_VAR_client_email: ${{ secrets.CLOUD_CLIENT_EMAIL }}
-        TF_VAR_client_id: ${{ secrets.CLOUD_CLIENT_ID }}
-        TF_VAR_client_x509_cert_url: ${{ secrets.CLOUD_CERT_URL }}
+        TF_VAR_cloud_credential: ${{ secrets.CLOUD_CREDENTIAL }}
     - name: Terraform Apply
       run: terraform apply -auto-approve
