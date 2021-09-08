@@ -5,6 +5,12 @@ terraform {
       version = "3.53"
     }
   }
+  backend "remote" {
+    organization = "leonardo-scalabrini"
+    workspaces {
+      name = "cep-backend"
+    }
+  }
 }
 
 variable "cloud_credential" {
