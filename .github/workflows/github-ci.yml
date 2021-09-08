@@ -49,8 +49,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
       env:
         TF_VAR_project_id: ${{ secrets.CLOUD_PROJECT_ID }}
         TF_VAR_private_key_id: ${{ secrets.CLOUD_PROJECT_KEY_ID }}
@@ -58,6 +56,8 @@ jobs:
         TF_VAR_client_email: ${{ secrets.CLOUD_CLIENT_EMAIL }}
         TF_VAR_client_id: ${{ secrets.CLOUD_CLIENT_ID }}
         TF_VAR_client_x509_cert_url: ${{ secrets.CLOUD_CERT_URL }}
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
