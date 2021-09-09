@@ -13,16 +13,32 @@ terraform {
   }
 }
 
+variable "project_id" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
 variable "cloud_credential" {
+  type = string
+}
+
+variable "startup_script" {
   type = string
 }
 
 provider "google" {
   credentials = var.cloud_credential
 
-  project = "ecstatic-bounty-323023"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -42,7 +58,7 @@ module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
 
   container = {
-    image = "gcr.io/ecstatic-bounty-323023/cep-backend:v1.0"
+    image = var.image
   }
 
   restart_policy = "Always"
@@ -51,9 +67,9 @@ module "gce-container" {
 resource "google_compute_instance" "instance_with_ip" {
   name         = "vm-instance"
   machine_type = "f1-micro"
-  zone         = "us-central1-a"
+  zone         = var.zone
   tags = ["http-server"]
-  metadata_startup_script = "echo hi > /test.txt"
+  metadata_startup_script = var.startup_script
 
   metadata = {
     gce-container-declaration = module.gce-container.metadata_value

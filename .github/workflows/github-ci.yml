@@ -74,7 +74,17 @@ jobs:
       run: terraform plan
       env:
         TF_VAR_cloud_credential: ${{ secrets.CLOUD_CREDENTIAL }}
+        TF_VAR_project_id: ${{ secrets.PROJECT_ID }}
+        TF_VAR_region: ${{ secrets.REGION }}
+        TF_VAR_zone: ${{ secrets.ZONE }}
+        TF_VAR_image: ${{ secrets.IMAGE }}"gcr.io/{{ secrets.PROJECT_ID }}/cep-backend:v1.0"
+        TF_VAR_startup_script: "docker run -p 80:9090 -e PORT=9090 gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:v1.0"
     - name: Terraform Apply
       run: terraform apply -auto-approve
       env:
         TF_VAR_cloud_credential: ${{ secrets.CLOUD_CREDENTIAL }}
+        TF_VAR_project_id: ${{ secrets.PROJECT_ID }}
+        TF_VAR_region: ${{ secrets.REGION }}
+        TF_VAR_zone: ${{ secrets.ZONE }}
+        TF_VAR_image: ${{ secrets.IMAGE }}"gcr.io/{{ secrets.PROJECT_ID }}/cep-backend:v1.0"
+        TF_VAR_startup_script: "docker run -p 80:9090 -e PORT=9090 gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:v1.0"
