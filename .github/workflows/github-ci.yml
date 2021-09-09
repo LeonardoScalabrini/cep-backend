@@ -57,9 +57,10 @@ jobs:
     - run: |
         gcloud auth configure-docker
     - name: Image
-    - run: |-
+      run: |-
         docker build -t cep-backend:v1.0 .
-    - run: |-
+    - name: Tag
+      run: |-
         docker tag cep-backend:v1.0 gcr.io/$PROJECT_ID/cep-backend:v1.0
     - name: Build
       run: |-
