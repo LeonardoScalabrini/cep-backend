@@ -13,22 +13,21 @@ terraform {
   }
 }
 
+variable "name" {
+  type = string
+}
 variable "project_id" {
   type = string
 }
-
 variable "region" {
   type = string
 }
-
 variable "zone" {
   type = string
 }
-
 variable "cloud_credential" {
   type = string
 }
-
 variable "startup_script" {
   type = string
 }
@@ -65,7 +64,7 @@ module "gce-container" {
 }
 
 resource "google_compute_instance" "instance_with_ip" {
-  name         = "vm-instance"
+  name         = var.name
   machine_type = "f1-micro"
   zone         = var.zone
   tags = ["http-server"]
