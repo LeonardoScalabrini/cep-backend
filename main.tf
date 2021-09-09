@@ -25,10 +25,13 @@ variable "region" {
 variable "zone" {
   type = string
 }
-variable "cloud_credential" {
+variable "image" {
   type = string
 }
 variable "startup_script" {
+  type = string
+}
+variable "cloud_credential" {
   type = string
 }
 
