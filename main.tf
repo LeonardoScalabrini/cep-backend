@@ -68,7 +68,7 @@ module "gce-container" {
 
 resource "google_compute_instance" "instance_with_ip" {
   name         = var.name
-  machine_type = "f1-micro"
+  machine_type = "e2-medium"
   zone         = var.zone
   tags = ["http-server"]
   metadata_startup_script = var.startup_script
