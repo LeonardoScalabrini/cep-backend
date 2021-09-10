@@ -64,6 +64,9 @@ jobs:
     - name: Build
       run: |-
         docker push gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:v1.0
+    - name: Update
+      run: |-
+        gcloud compute instances update-container instance-vm --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:v1.0
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
