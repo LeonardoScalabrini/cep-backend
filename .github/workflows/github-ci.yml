@@ -68,13 +68,13 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       env:
         image: gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest
-        TFE_image: gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest
+        TF_VAR_image: gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
-      run: terraform plan -var image=$image
+      run: terraform plan
     - name: Terraform Apply
       run: terraform apply -auto-approve
     - uses: google-github-actions/setup-gcloud@master
