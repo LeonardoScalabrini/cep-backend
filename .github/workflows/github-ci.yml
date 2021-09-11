@@ -74,7 +74,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -var image=$image
     - name: Terraform Apply
       run: terraform apply -auto-approve
     - uses: google-github-actions/setup-gcloud@master
