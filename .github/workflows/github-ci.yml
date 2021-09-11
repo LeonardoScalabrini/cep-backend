@@ -78,10 +78,10 @@ jobs:
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
         service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-    - name: Config project
-      run: |-
-          gcloud config set project ${{ secrets.PROJECT_ID }}
+    - name: Update Config
+    - run: |-
+        gcloud config set project ${{ secrets.PROJECT_ID }}
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance 
-        --metadata startup-script=teste --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest
+        --metadata startup-script=teste --zone=${{ secrets.ZONE }} --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest --zone=${{ secrets.ZONE }}
