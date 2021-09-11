@@ -9,7 +9,7 @@ module.exports = app => {
           res.status(200).json(docs)
         })
       } else {
-        res.status(200).json('Aqui 3')
+        res.status(200).json('Aqui 4')
       }
     })
 }
