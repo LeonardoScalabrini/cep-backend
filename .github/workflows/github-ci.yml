@@ -84,4 +84,4 @@ jobs:
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance 
-        --metadata startup-script=teste --zone=${{ secrets.ZONE }}
+        --command 'teste' --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest --zone=${{ secrets.ZONE }}
