@@ -41,6 +41,8 @@ jobs:
       env:
        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   cd:
+    env:
+      image: gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:latest
     needs: [ci]
     runs-on: ubuntu-latest
     defaults:
