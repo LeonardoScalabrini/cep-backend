@@ -81,9 +81,6 @@ jobs:
     - name: Config project
       run: |-
           gcloud config set project ${{ secrets.PROJECT_ID }}
-    - name: Config zone
-      run: |-
-          gcloud config set zone ${{ secrets.ZONE }}
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance 
