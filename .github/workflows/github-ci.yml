@@ -83,4 +83,4 @@ jobs:
         gcloud config set project ${{ secrets.PROJECT_ID }}
     - name: Update Image
       run: |-
-        gcloud compute instances update-container vm-instance --container-command='docker run -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/ecstatic-bounty-323023/cep-backend:$GITHUB_SHA' --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
+        gcloud compute instances update-container vm-instance --metadata-from-file=startup-script=startup.sh --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
