@@ -83,7 +83,7 @@ jobs:
         gcloud config set project ${{ secrets.PROJECT_ID }}
     - name: Update startup-script
       run: |-
-        gcloud compute instances add-metadata vm-instance --metadata startup-script='docker run -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:${{ github.sha }}' --zone ${{ secrets.ZONE }}
+        gcloud compute instances add-metadata vm-instance --metadata startup-script='docker run -t -d -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:${{ github.sha }}' --zone ${{ secrets.ZONE }}
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
