@@ -103,4 +103,8 @@ resource "google_compute_instance" "instance_with_ip" {
       nat_ip = google_compute_address.static.address
     }
   }
+
+  lifecycle {
+        ignore_changes = [metadata_startup_script]
+    }
 }
