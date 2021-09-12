@@ -59,10 +59,6 @@ data "google_compute_image" "container-optimized-image" {
 module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
 
-  container = {
-    image = var.image
-  }
-
   restart_policy = "Always"
 }
 
@@ -71,24 +67,11 @@ resource "google_compute_instance" "instance_with_ip" {
   machine_type = "e2-medium"
   zone         = var.zone
   tags = ["http-server"]
-  metadata_startup_script = var.startup_script
 
   metadata = {
     gce-container-declaration = module.gce-container.metadata_value
     google-logging-enabled    = "true"
     google-monitoring-enabled = "true"
-  }
-
-  service_account {
-      email  = "1001547212506-compute@developer.gserviceaccount.com"
-      scopes = [
-        "https://www.googleapis.com/auth/devstorage.read_only",
-        "https://www.googleapis.com/auth/logging.write",
-        "https://www.googleapis.com/auth/monitoring.write",
-        "https://www.googleapis.com/auth/servicecontrol",
-        "https://www.googleapis.com/auth/service.management.readonly",
-        "https://www.googleapis.com/auth/trace.append"
-      ]
   }
 
   boot_disk {
@@ -105,6 +88,6 @@ resource "google_compute_instance" "instance_with_ip" {
   }
 
   lifecycle {
-        ignore_changes = [metadata_startup_script]
+        ignore_changes = [metadata_startup_script, container.image]
     }
 }
