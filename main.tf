@@ -59,6 +59,10 @@ data "google_compute_image" "container-optimized-image" {
 module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
 
+  container = {
+    image = var.image
+  }
+
   restart_policy = "Always"
 }
 
@@ -88,6 +92,6 @@ resource "google_compute_instance" "instance_with_ip" {
   }
 
   lifecycle {
-        ignore_changes = [metadata_startup_script, container.image]
+        ignore_changes = [metadata_startup_script]
     }
 }
