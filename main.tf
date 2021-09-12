@@ -78,6 +78,18 @@ resource "google_compute_instance" "instance_with_ip" {
     google-monitoring-enabled = "true"
   }
 
+  service_account {
+      email  = "1001547212506-compute@developer.gserviceaccount.com"
+      scopes = [
+        "https://www.googleapis.com/auth/devstorage.read_only",
+        "https://www.googleapis.com/auth/logging.write",
+        "https://www.googleapis.com/auth/monitoring.write",
+        "https://www.googleapis.com/auth/servicecontrol",
+        "https://www.googleapis.com/auth/service.management.readonly",
+        "https://www.googleapis.com/auth/trace.append"
+      ]
+  }
+
   boot_disk {
     initialize_params {
       image = data.google_compute_image.container-optimized-image.self_link
