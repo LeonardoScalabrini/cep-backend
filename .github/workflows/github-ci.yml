@@ -90,3 +90,6 @@ jobs:
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
+    - name: Reset vm
+      run: |-
+        gcloud compute instances reset vm-instance --zone ${{ secrets.ZONE }}
