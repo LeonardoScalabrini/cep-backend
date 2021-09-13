@@ -28,7 +28,7 @@ variable "zone" {
 variable "image" {
   type = string
 }
-variable "startup_script" {
+variable "startup_script_url" {
   type = string
 }
 variable "cloud_credential" {
