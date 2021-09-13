@@ -51,6 +51,10 @@ resource "google_cloud_run_service" "default" {
     spec {
       containers {
         image = var.image
+        env {
+          name = "STRING_CONNECTION_DB"
+          value = ""
+        }
       }
     }
   }
