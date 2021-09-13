@@ -84,7 +84,7 @@ jobs:
     - name: Create startup
       run: |-
         echo '
-        docker-credential-gcr configure-docker
+        echo $USER
         docker run -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:${{ github.sha }}
         ' > startup.sh
     - name: Update startup
