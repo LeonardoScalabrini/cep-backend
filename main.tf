@@ -51,7 +51,7 @@ resource "google_cloud_run_service" "default" {
     spec {
       containers {
         image = var.image
-        containerPort = 80
+         ports = [{ "containerPort": 9090 }]
       }
     }
   }
