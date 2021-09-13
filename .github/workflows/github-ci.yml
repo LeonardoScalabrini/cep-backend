@@ -81,6 +81,12 @@ jobs:
     - name: Update Config
       run: |-
         gcloud config set project ${{ secrets.PROJECT_ID }}
+    - name: Create startup
+      run: |-
+        echo 'docker run -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:${{ github.sha }}' > startup.sh
+    - name: Update startup
+      run: |-
+        gcloud compute scp startup.sh vm-instance:~ --zone ${{ secrets.ZONE }}
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
