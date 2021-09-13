@@ -86,7 +86,7 @@ jobs:
         echo 'docker run -p 80:9090 -e PORT=9090 -e STRING_CONNECTION_DB="" gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:${{ github.sha }}' > startup.sh
     - name: Update startup
       run: |-
-        gcloud compute scp startup.sh vm-instance:~ --zone ${{ secrets.ZONE }}
+        gsutil cp startup.sh gs://${{ secrets.PROJECT_ID }}.appspot.com/
     - name: Update Image
       run: |-
         gcloud compute instances update-container vm-instance --container-image gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA --zone ${{ secrets.ZONE }}
