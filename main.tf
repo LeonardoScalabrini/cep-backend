@@ -28,7 +28,7 @@ variable "zone" {
 variable "image" {
   type = string
 }
-variable "startup_script_url" {
+variable "startup_script" {
   type = string
 }
 variable "cloud_credential" {
@@ -71,7 +71,7 @@ resource "google_compute_instance" "instance_with_ip" {
   machine_type = "e2-medium"
   zone         = var.zone
   tags = ["http-server"]
-  metadata_startup-script-url = var.startup_script_url
+  metadata_startup_script = var.startup_script
 
   metadata = {
     gce-container-declaration = module.gce-container.metadata_value
