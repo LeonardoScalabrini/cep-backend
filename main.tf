@@ -54,7 +54,7 @@ resource "google_cloud_run_service" "cep-backend" {
   template {
     spec {
       containers {
-        image = "${var.image}:eb7205ba40c8eac8723d39e72e5e9e3ebebd2bf6"
+        image = var.image
         env {
           name = "STRING_CONNECTION_DB"
         }
@@ -68,6 +68,10 @@ resource "google_cloud_run_service" "cep-backend" {
   }
 
   depends_on = [google_project_service.run_api]
+
+  lifecycle {
+    ignore_changes = [ template.0.spec.0.containers.0.image ]
+  }
 }
 
 resource "google_cloud_run_service_iam_member" "run_all_users" {
