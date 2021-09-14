@@ -43,6 +43,10 @@ provider "google" {
   zone    = var.zone
 }
 
+provider "git" {}
+
+data "git_repository" "cep-backend" {}
+
 resource "google_project_service" "run_api" {
   service = "run.googleapis.com"
 }
@@ -54,7 +58,7 @@ resource "google_cloud_run_service" "cep-backend" {
   template {
     spec {
       containers {
-        image = var.image
+        image = "${var.image}:${data.git_repository.cep-backend.commit_sha}"
         env {
           name = "STRING_CONNECTION_DB"
         }
