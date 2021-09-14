@@ -47,8 +47,8 @@ resource "google_project_service" "run_api" {
   service = "run.googleapis.com"
 }
 
-resource "google_cloud_run_service" "default" {
-  name     = "cloudrun-srv"
+resource "google_cloud_run_service" "run_service" {
+  name     = "run_service"
   location = var.region
 
   template {
