@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/google"
       version = "3.53"
     }
+    git = {
+      source = "innovationnorway/git"
+      version = "0.1.3"
+    }
   }
   backend "remote" {
     organization = "leonardo-scalabrini"
