@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/google"
       version = "3.53"
     }
-    git = {
-      source = "innovationnorway/git"
-      version = "0.1.3"
-    }
   }
   backend "remote" {
     organization = "leonardo-scalabrini"
@@ -47,12 +43,6 @@ provider "google" {
   zone    = var.zone
 }
 
-provider "git" {}
-
-data "git_repository" "cep-backend" {
-  path = "https://github.com/LeonardoScalabrini/cep-backend.git"
-}
-
 resource "google_project_service" "run_api" {
   service = "run.googleapis.com"
 }
@@ -64,7 +54,7 @@ resource "google_cloud_run_service" "cep-backend" {
   template {
     spec {
       containers {
-        image = "${var.image}:${data.git_repository.cep-backend.commit_sha}"
+        image = "${var.image}:eb7205ba40c8eac8723d39e72e5e9e3ebebd2bf6"
         env {
           name = "STRING_CONNECTION_DB"
         }
