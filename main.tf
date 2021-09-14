@@ -45,7 +45,7 @@ provider "google" {
 
 resource "google_cloud_run_service" "default" {
   name     = "cloudrun-srv"
-  location = var.zone
+  location = var.region
 
   template {
     spec {
