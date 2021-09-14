@@ -53,7 +53,6 @@ resource "google_cloud_run_service" "default" {
         image = var.image
         env {
           name = "STRING_CONNECTION_DB"
-          value = ""
         }
       }
     }
