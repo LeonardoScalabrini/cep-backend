@@ -50,7 +50,7 @@ provider "google" {
 provider "git" {}
 
 data "git_repository" "cep-backend" {
-  path = "git@github.com:LeonardoScalabrini/cep-backend.git"
+  path = "https://github.com/LeonardoScalabrini/cep-backend.git"
 }
 
 resource "google_project_service" "run_api" {
