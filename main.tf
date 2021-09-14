@@ -49,7 +49,9 @@ provider "google" {
 
 provider "git" {}
 
-data "git_repository" "cep-backend" {}
+data "git_repository" "cep-backend" {
+  path = path.root
+}
 
 resource "google_project_service" "run_api" {
   service = "run.googleapis.com"
