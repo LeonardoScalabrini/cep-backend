@@ -57,13 +57,13 @@ jobs:
         gcloud auth configure-docker
     - name: Image
       run: |-
-        docker build -t cep-backend:$GITHUB_SHA .
+        docker build -t cep-backend .
     - name: Tag
       run: |-
-        docker tag cep-backend:$GITHUB_SHA gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA
+        docker tag cep-backend gcr.io/${{ secrets.PROJECT_ID }}/cep-backend
     - name: Build
       run: |-
-        docker push gcr.io/${{ secrets.PROJECT_ID }}/cep-backend:$GITHUB_SHA
+        docker push gcr.io/${{ secrets.PROJECT_ID }}/cep-backend
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
