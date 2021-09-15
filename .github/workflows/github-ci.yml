@@ -51,20 +51,25 @@ jobs:
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
         service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-      env:
-       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-       PROJECT_ID: ${{ secrets.PROJECT_ID }}
     - run: |
         gcloud auth configure-docker
     - name: Image
       run: |-
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
+      env:
+       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Tag
       run: |-
         docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+      env:
+       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+       PROJECT_ID: ${{ secrets.PROJECT_ID }}
     - name: Build
       run: |-
         docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+      env:
+       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+       PROJECT_ID: ${{ secrets.PROJECT_ID }}
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -79,13 +84,15 @@ jobs:
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
         service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+    - name: Update Config
+      run: |-
+        gcloud config set project $PROJECT_ID
+      env:
+       PROJECT_ID: ${{ secrets.PROJECT_ID }}
+    - name: Update Image
+      run: |-
+        gcloud run deploy $IMAGE_NAME --image gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA --region $REGION
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
        PROJECT_ID: ${{ secrets.PROJECT_ID }}
        REGION: ${{ secrets.REGION }}
-    - name: Update Config
-      run: |-
-        gcloud config set project $PROJECT_ID
-    - name: Update Image
-      run: |-
-        gcloud run deploy $IMAGE_NAME --image gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA --region $REGION
