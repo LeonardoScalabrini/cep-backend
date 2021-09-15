@@ -1,5 +1,13 @@
 # cep-backend
 
+## .env
+
+#PORT
+PORT=9090
+
+#MongoDB string connection
+STRING_CONNECTION_DB=mongodb://127.0.0.1:27017/correios
+
 ## Dev quick start ##
 
 1. Install packages
@@ -12,7 +20,9 @@ npm install
 docker-compose up
 ````
 
-3. Start locally
+3. Create .env file
+
+4. Start locally
 ````
 npm start
 ````
