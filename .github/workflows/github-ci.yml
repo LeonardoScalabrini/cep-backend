@@ -3,8 +3,6 @@ name: GitHub CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   ci:
@@ -47,8 +45,6 @@ jobs:
       run:
         shell: bash
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
     - uses: google-github-actions/setup-gcloud@master
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
