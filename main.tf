@@ -12,10 +12,6 @@ terraform {
     }
   }
 }
-
-variable "name" {
-  type = string
-}
 variable "project_id" {
   type = string
 }
@@ -26,9 +22,6 @@ variable "zone" {
   type = string
 }
 variable "image" {
-  type = string
-}
-variable "startup_script" {
   type = string
 }
 variable "cloud_credential" {
