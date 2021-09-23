@@ -1,5 +1,0 @@
-project_id       = "<project_id>"
-region           = "<region>"
-zone             = "<zone>"
-image            = "<image>"
-cloud_credential = "<cloud_credential>"
