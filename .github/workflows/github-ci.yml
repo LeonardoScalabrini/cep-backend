@@ -79,9 +79,9 @@ jobs:
     - name: Terraform fmt
       run: terraform fmt -diff -check
     - name: Terraform Plan
-      run: terraform plan -var-file="variable.tf"
+      run: terraform plan -var-file="variables.tf"
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var-file="variable.tf"
+      run: terraform apply -auto-approve -var-file="variables.tf"
     - uses: google-github-actions/setup-gcloud@master
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
