@@ -8,7 +8,7 @@ terraform {
   backend "remote" {
     organization = "leonardo-scalabrini"
     workspaces {
-      name = "cep_backend"
+      name = "cep-backend"
     }
   }
 }
