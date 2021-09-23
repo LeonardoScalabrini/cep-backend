@@ -4,21 +4,21 @@ variable "project_id" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "region"
 }
 
 variable "zone" {
-  type = string
+  type    = string
   default = "zone"
 }
 
 variable "image" {
-  type = string
+  type    = string
   default = "image"
 }
 
 variable "cloud_credential" {
-  type = string
+  type    = string
   default = "cloud_credential"
 }
