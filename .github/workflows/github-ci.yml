@@ -76,10 +76,12 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
     - name: Terraform Init
       run: terraform init
+    - name: Terraform fmt
+      run: terraform fmt -diff -check
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -var-file="terraform.tfvars"
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -var-file="terraform.tfvars"
     - uses: google-github-actions/setup-gcloud@master
       with:
         service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
