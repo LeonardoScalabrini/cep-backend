@@ -41,14 +41,14 @@ resource "google_cloud_run_service" "cep_backend" {
   }
 
   traffic {
-    percent = 100
+    percent         = 100
     latest_revision = true
   }
 
   depends_on = [google_project_service.run_api]
 
   lifecycle {
-    ignore_changes = [ template.0.spec.0.containers.0.image ]
+    ignore_changes = [template.0.spec.0.containers.0.image]
   }
 }
 
