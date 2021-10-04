@@ -31,3 +31,28 @@
 * [ ] Especifique valores booleanos como variáveis ​​de string
 * [ ] Utilziar funções integradas do terraform
 * [ ] Formatar arquivos Terraform automaticamente terraform fmt -diff
+
+## docker
+* [ ] Verificar se o container é efemero
+* [ ] Verificar se está sendo enviado apenas os arquivos necessários para o build .dockerignore
+* [ ] Verificar se não está sendo instalado pacotes desnecessários
+* [ ] Verificar se os containers estão desacoplados
+* [ ] Classificar argumentos de várias linhas (\)
+    * RUN apt-get update && apt-get install -y \ 
+    * bzr \
+    * cvs \
+* [ ] Verificar se está utilizando multi-stage build
+    * Exemplo: https://docs.docker.com/develop/develop-images/multistage-build/
+* [ ] Verificar vulnerabilidades  da imagem executando docker scan <image-name>
+* [ ] Restringir os recursos do aplicativo ao conjunto mínimo necessário usando --cap-drop flag
+* [ ] Evite utilizar tags mutantes
+    * Exemplo: https://sysdig.com/blog/toctou-tag-mutability/
+* [ ] Inclui verificações de saúde
+    * Exemplo: https://docs.docker.com/engine/reference/builder/#healthcheck
+* [ ] Executar container como não root, comando USER no Dockerfile
+* [ ] Assinar imagens e verificar assinaturas
+    * Exemplo: https://docs.docker.com/engine/security/trust/
+* [ ] Verificar se o Dockerfile não está passando nenhuma credencial ou informação sensivel
+* [ ] Priorize utilizar o comando COPY ao ADD
+* [ ] Não utilizar o comando COPY .
+
