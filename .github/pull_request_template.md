@@ -44,7 +44,6 @@
 * [ ] Verificar se está utilizando multi-stage build
     * Exemplo: https://docs.docker.com/develop/develop-images/multistage-build/
 * [ ] Verificar vulnerabilidades  da imagem executando docker scan <image-name>
-* [ ] Restringir os recursos do aplicativo ao conjunto mínimo necessário usando --cap-drop flag
 * [ ] Evite utilizar tags mutantes
     * Exemplo: https://sysdig.com/blog/toctou-tag-mutability/
 * [ ] Inclui verificações de saúde
@@ -54,5 +53,4 @@
     * Exemplo: https://docs.docker.com/engine/security/trust/
 * [ ] Verificar se o Dockerfile não está passando nenhuma credencial ou informação sensivel
 * [ ] Priorize utilizar o comando COPY ao ADD
-* [ ] Não utilizar o comando COPY .
 
