@@ -38,6 +38,7 @@ resource "google_cloud_run_service" "cep-backend" {
         }
       }
     }
+    autogenerate_revision_name = true
   }
 
   traffic {
