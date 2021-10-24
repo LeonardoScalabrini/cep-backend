@@ -1,4 +1,4 @@
-FROM node:bullseye-slim
+FROM node:14
 LABEL maintainer="leonardo_scalabrini@hotmail.com"
 RUN useradd -ms /bin/bash cep-backend
 USER cep-backend
