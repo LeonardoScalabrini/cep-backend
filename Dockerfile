@@ -1,5 +1,6 @@
 FROM node:bullseye-slim
 LABEL maintainer="leonardo_scalabrini@hotmail.com"
+RUN useradd -ms /bin/bash cep-backend
 USER cep-backend
 ENV PORT=9090
 ENV STRING_CONNECTION_DB="ARG_STRING_CONNECTION_DB"
