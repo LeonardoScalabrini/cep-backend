@@ -32,7 +32,8 @@
 * [ ] Utilziar funções integradas do terraform
 * [ ] Formatar arquivos Terraform automaticamente terraform fmt -diff
 
-## docker
+## docker:
+
 * [ ] Verificar se o container é efemero
 * [ ] Verificar se está sendo enviado apenas os arquivos necessários para o build .dockerignore
 * [ ] Verificar se não está sendo instalado pacotes desnecessários
@@ -53,4 +54,13 @@
     * Exemplo: https://docs.docker.com/engine/security/trust/
 * [ ] Verificar se o Dockerfile não está passando nenhuma credencial ou informação sensivel
 * [ ] Priorize utilizar o comando COPY ao ADD
+
+## node:
+
+* [ ] Estruture sua solução por componentes independentes e não agrupe por função técnica
+* [ ] Coloque seus componentes em camadas, dominio, caso de uso, infra
+* [ ] Mantenha a configuração do aplicativo separados
+https://github.com/goldbergyoni/nodebestpractices
+https://medium.com/@warkiringoda/typescript-best-practices-2021-a58aee199661
+https://ahorasomos.izertis.com/solidgear/en/nestjs-your-nodejs-empowered-with-best-practices/
 
