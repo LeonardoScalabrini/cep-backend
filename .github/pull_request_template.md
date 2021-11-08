@@ -60,6 +60,60 @@
 * [ ] Estruture sua solução por componentes independentes e não agrupe por função técnica
 * [ ] Coloque seus componentes em camadas, dominio, caso de uso, infra
 * [ ] Mantenha a configuração do aplicativo separados
+* [ ] Configurar arquivos utilizando a lib config
+* [ ] Use Async-Await ou promessas para tratamento de erros assíncronos
+```javascript
+async function executeAsyncTask () {
+  try {
+    const valueA = await functionA();
+    const valueB = await functionB(valueA);
+    const valueC = await functionC(valueB);
+    return await functionD(valueC);
+  }
+  catch (err) {
+    logger.error(err);
+  } finally {
+    await alwaysExecuteThisFunction();
+  }
+}
+```
+* [ ] Lance erros utilizando o Error embutido (@typescript-eslint/no-throw-literal)
+```javascript
+throw  new  Error ( 'Lançando erro' ) ;
+```
+* [ ] Distinguir erros operacionais de erros dos programado, de reiniciar app no caso de erro do programador
+```javascript
+export class AppError extends Error {
+  public readonly commonType: string;
+  public readonly isOperational: boolean;
+
+  constructor(commonType: string, description: string, isOperational: boolean) {
+    super(description);
+
+    Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
+
+    this.commonType = commonType;
+    this.isOperational = isOperational;
+
+    Error.captureStackTrace(this);
+  }
+}
+
+throw new AppError(errorManagement.commonErrors.InvalidInput, 'Describe', true);
+```
+* [ ] Implementar log de erros (Prometheus , CloudWatch , DataDog e Sentry)
+* [ ] Trate os erros de maneira centralizada. Não utilizando middlewares
+```javascript
+class ErrorHandler {
+  public async handleError(error: Error, responseStream: Response): Promise<void> {
+    await logger.logError(error);
+    await fireMonitoringMetric(error);
+    await crashIfUntrustedErrorOrSendResponse(error, responseStream);
+  };
+}
+
+export const handler = new ErrorHandler();
+```
 https://github.com/goldbergyoni/nodebestpractices
 https://medium.com/@warkiringoda/typescript-best-practices-2021-a58aee199661
 https://ahorasomos.izertis.com/solidgear/en/nestjs-your-nodejs-empowered-with-best-practices/
