@@ -41,5 +41,5 @@ docker-compose up
 
 3. Run tests
 ````
-npm test
+npm test 
 ````
