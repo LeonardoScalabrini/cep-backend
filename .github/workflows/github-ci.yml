@@ -68,7 +68,7 @@ jobs:
         python3 -m pip install claircli
         claircli -V
         # claircli -l
-        claircli -l $CLAIR_HOST_URL $IMAGE_NAME:$GITHUB_SHA
+        claircli -c $CLAIR_HOST_URL $IMAGE_NAME:$GITHUB_SHA
       env:
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
         CLAIR_HOST_URL: ${{ secrets.CLAIR_HOST_URL }}
