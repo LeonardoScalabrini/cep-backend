@@ -59,6 +59,11 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    - name: Docker clair
+      uses: actions/checkout@v2
+      run: |-
+        docker run -d -e POSTGRES_PASSWORD=clair -e POSTGRES_USER=clair -e POSTGRES_DB=clair -p 5432:5432 --name postgres postgres:9.6 postgres
+        docker run -d -p 6060:6060 --name clair --link postgres:postgres -v $PWD/clair_config:/config quay.io/coreos/clair:v4.3.6 -conf=/config/config.yaml
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8 
@@ -68,14 +73,18 @@ jobs:
         python3 -m pip install claircli
         claircli -V
         # claircli -l
-        claircli -c $CLAIR_HOST_URL $IMAGE_NAME:$GITHUB_SHA
+        claircli $IMAGE_NAME:$GITHUB_SHA
       env:
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
         CLAIR_HOST_URL: ${{ secrets.CLAIR_HOST_URL }}
+    - uses: actions/checkout@v2
+    - name: Stop containers Clair
+      run: |
+        docker stop postgres
+        docker stop clair
     - name: Tag
       run: |-
         docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
-        docker images
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
        PROJECT_ID: ${{ secrets.PROJECT_ID }}
