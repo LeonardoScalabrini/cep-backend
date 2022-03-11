@@ -60,7 +60,6 @@ jobs:
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Docker clair
-      uses: actions/checkout@v2
       run: |-
         docker run -d -e POSTGRES_PASSWORD=clair -e POSTGRES_USER=clair -e POSTGRES_DB=clair -p 5432:5432 --name postgres postgres:9.6 postgres
         docker run -d -p 6060:6060 --name clair --link postgres:postgres -v $PWD/clair_config:/config quay.io/coreos/clair:v4.3.6 -conf=/config/config.yaml
@@ -77,7 +76,6 @@ jobs:
       env:
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
         CLAIR_HOST_URL: ${{ secrets.CLAIR_HOST_URL }}
-    - uses: actions/checkout@v2
     - name: Stop containers Clair
       run: |
         docker stop postgres
