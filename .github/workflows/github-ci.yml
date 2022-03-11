@@ -59,6 +59,10 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    - name: Tag
+      run: |-
+        docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+        docker images
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8 
@@ -69,10 +73,8 @@ jobs:
         # Install build deps
         python3 -m pip install claircli
         claircli -V
-        claircli -l 104.197.211.82 $IMAGE_NAME:$GITHUB_SHA
-    - name: Tag
-      run: |-
-        docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+        # claircli -l
+        claircli -l 104.197.211.82 gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
        PROJECT_ID: ${{ secrets.PROJECT_ID }}
