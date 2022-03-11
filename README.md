@@ -44,5 +44,6 @@ docker-compose up
 npm test 
 ````
 
+## Clair
 docker run -d -e POSTGRES_PASSWORD=clair -e POSTGRES_USER=clair -e POSTGRES_DB=clair -p 5432:5432 --name postgres postgres:9.6 postgres
 docker run -d -p 6060:6060 --name clair --link postgres:postgres -v $PWD/clair_config:/config quay.io/coreos/clair:v4.3.6 -conf=/config/config.yaml
