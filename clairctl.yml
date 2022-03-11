@@ -1,6 +1,7 @@
 clair:
   port: 6060
-  clair: http://34.133.46.71
+  healthPort: 6061
+  uri: http://34.133.46.71
   report:
     path: ./reports
     format: html
