@@ -59,18 +59,11 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.8 
     - name: "claircli"
       run: |
-        # Upgrade pip
-        python3 -m pip install --upgrade pip
-        # Install build deps
-        python3 -m pip install claircli
-        claircli -V
-        # claircli -l
-        claircli -l 104.197.211.82 $IMAGE_NAME:$GITHUB_SHA
+        wget https://github.com/jgsqware/clairctl/releases/download/v1.2.8/clairctl-linux-amd64
+        ./clairctl-linux-amd64 --config=clairctl.yml analyze $IMAGE_NAME:$GITHUB_SHA
+        ./clairctl-linux-amd64 --config=clairctl.yml report $IMAGE_NAME:$GITHUB_SHA
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Tag
