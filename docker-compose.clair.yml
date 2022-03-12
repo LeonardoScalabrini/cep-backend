@@ -11,6 +11,6 @@ services:
     ports:
       - 6060:6060
     links:
-      - db:clair-db
+      - clair-db:postgres
     depends_on:
       - clair-db
