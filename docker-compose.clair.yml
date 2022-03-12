@@ -10,7 +10,7 @@ services:
     image: arminc/clair-local-scan
     ports:
       - 6060:6060
-    links:
-      - "db:postgres"
+    external_links:
+      - db:postgres
     depends_on:
-      - "clair-db"
+      - clair-db
