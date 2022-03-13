@@ -62,7 +62,8 @@ jobs:
     - name: Start clair container
       run: |-
         docker-compose -f docker-compose.clair.yml up -d
-        docker image $IMAGE_NAME:$GITHUB_SHA localhost:5000/$IMAGE_NAME:$GITHUB_SHA
+        docker image tag $IMAGE_NAME:$GITHUB_SHA localhost:5000/$IMAGE_NAME:$GITHUB_SHA
+        docker push localhost:5000/$IMAGE_NAME:$GITHUB_SHA
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - uses: actions/setup-python@v2
