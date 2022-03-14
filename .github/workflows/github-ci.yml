@@ -33,14 +33,16 @@ jobs:
       with:
         push: false
         load: true
-        tags: ${{ secrets.IMAGE_NAME }}:${{ env.GITHUB_SHA }}
+        tags: ${{ secrets.IMAGE_NAME }}
     - name: Docker bench security
       run: |-
           sudo rm -rf docker-bench-security
           git clone https://github.com/docker/docker-bench-security.git
           cd docker-bench-security
-          sudo sh docker-bench-security.sh -i goof:develop -p
+          sudo sh docker-bench-security.sh -i $IMAGE_NAME -p
           cd ..
+      env:
+        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Run Snyk
       continue-on-error: true
       uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
@@ -52,7 +54,7 @@ jobs:
         args: --severity-threshold=medium --file=Dockerfile
     - name: Tag
       run: |-
-        docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+        docker tag $IMAGE_NAME gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
        PROJECT_ID: ${{ secrets.PROJECT_ID }}
