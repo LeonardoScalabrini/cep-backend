@@ -18,9 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker-compose -f docker-compose.yml up -d mongo
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
       #- run: npm ci
       #- id: Test
       #- run: npm test
