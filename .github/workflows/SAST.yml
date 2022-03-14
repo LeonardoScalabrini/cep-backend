@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  SAST_job:
+  reusable_workflow_job:
     name: SAST
     runs-on: ubuntu-latest
     strategy:
