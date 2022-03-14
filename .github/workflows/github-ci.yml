@@ -59,12 +59,6 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-    - name: Docker bench security
-      uses: actions/checkout@v3
-      with:
-        repository: 'https://github.com/docker/docker-bench-security'
-      run: |-
-        ls
     - name: Build Docker Image
       id: docker_build
       uses: docker/build-push-action@v2
@@ -72,6 +66,12 @@ jobs:
         push: false
         load: true
         tags: goof:develop
+    - uses: actions/checkout@v3
+      with:
+        repository: 'https://github.com/docker/docker-bench-security.git'
+    - name: Docker bench security
+      run: |-
+        ls
     - name: Run Snyk
       continue-on-error: true
       uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
