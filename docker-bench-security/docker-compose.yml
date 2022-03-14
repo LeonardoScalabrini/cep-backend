@@ -3,8 +3,13 @@ version: "3"
 services:
   docker-bench-security:
     image: docker/docker-bench-security
+    build:
+      args:
+        - DOCKER_CONTENT_TRUST=1
     volumes:
+      - /output.txt:/output.txt
       - /var/lib:/var/lib
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/lib/systemd:/usr/lib/systemd
       - /etc:/etc --label docker_bench_security
+    command: ["-t ${IMAGE_NAME}:${IMAGE_TAG}"]
