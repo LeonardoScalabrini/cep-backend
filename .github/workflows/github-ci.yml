@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-SAST:
-    uses: ./.github/workflows/SAST.yml@main
+    uses: ./.github/workflows/SAST.yml
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
