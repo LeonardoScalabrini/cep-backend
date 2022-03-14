@@ -59,6 +59,9 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    - name: Docker bench security
+      run: |-
+        docker-compose -f ./docker-bench-security/docker-compose.yml up
     - name: Build Docker Image
       id: docker_build
       uses: docker/build-push-action@v2
