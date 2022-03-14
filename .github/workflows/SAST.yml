@@ -19,15 +19,13 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker-compose -f docker-compose.yml up -d mongo
       - run: npm ci
-      #- id: Test
-      #- run: npm test
-      #- id: Down mongo
-      #- run: docker-compose -f docker-compose.yml down
-      #- uses: sonarsource/sonarqube-scan-action@master
-      #  env:
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      #- uses: sonarsource/sonarqube-quality-gate-action@master
-      #  timeout-minutes: 5
-      #  env:
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - run: npm test
+      - run: docker-compose -f docker-compose.yml down
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
