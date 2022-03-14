@@ -68,7 +68,7 @@ jobs:
         tags: goof:develop
     - uses: actions/checkout@v3
       with:
-        repository: 'https://github.com/docker/docker-bench-security.git'
+        repository: 'docker/docker-bench-security'
     - name: Docker bench security
       run: |-
         ls
