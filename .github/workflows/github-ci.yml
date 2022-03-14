@@ -59,6 +59,13 @@ jobs:
         docker build -t $IMAGE_NAME:$GITHUB_SHA .
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    - name: Build Docker Image
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: false
+        load: true
+        tags: goof:develop
     - name: Run Snyk
       continue-on-error: true
       uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
@@ -66,7 +73,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
       with:
-        image: $IMAGE_NAME:$GITHUB_SHA
+        image: goof:develop
         args: --severity-threshold=medium --file=Dockerfile
     - name: Tag
       run: |-
