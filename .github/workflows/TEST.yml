@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
-    name: SAST
+    name: TEST
     steps:
       - uses: actions/checkout@v2
       - run: docker-compose -f docker-compose.yml up -d mongo

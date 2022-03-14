@@ -39,7 +39,9 @@ jobs:
       with:
         push: false
         load: true
-        tags: goof:develop
+        tags: $IMAGE_NAME:$GITHUB_SHA
+      env:
+       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Docker bench security
       run: |-
           sudo rm -rf docker-bench-security
@@ -54,7 +56,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
       with:
-        image: goof:develop
+        image: $IMAGE_NAME:$GITHUB_SHA
         args: --severity-threshold=medium --file=Dockerfile
     - name: Tag
       run: |-
