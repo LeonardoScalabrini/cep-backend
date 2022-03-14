@@ -5,13 +5,15 @@ on:
     branches: [ master ]
 
 jobs:
-  call-SAST:
+  TEST:
+    uses: ./.github/workflows/TEST.yml
+  SAST:
     uses: ./.github/workflows/SAST.yml
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   cd:
-    needs: [call-SAST]
+    needs: [SAST, TEST]
     runs-on: ubuntu-latest
     defaults:
       run:

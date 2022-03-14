@@ -17,10 +17,6 @@ jobs:
     name: SAST
     steps:
       - uses: actions/checkout@v2
-      - run: docker-compose -f docker-compose.yml up -d mongo
-      - run: npm ci
-      - run: npm test
-      - run: docker-compose -f docker-compose.yml down
       - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

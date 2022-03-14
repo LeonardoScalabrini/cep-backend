@@ -1,0 +1,18 @@
+name: TEST workflow
+
+on:
+  workflow_call:
+
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    name: SAST
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker-compose -f docker-compose.yml up -d mongo
+      - run: npm ci
+      - run: npm test
+      - run: docker-compose -f docker-compose.yml down
