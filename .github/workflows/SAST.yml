@@ -2,10 +2,6 @@ name: SAST workflow
 
 on:
   workflow_call:
-    inputs:
-      SONAR_TOKEN:
-        required: true
-        type: string
     secrets:
       SONAR_TOKEN:
         required: true
@@ -13,7 +9,7 @@ on:
         required: true
 
 jobs:
-  example_job:
+  SAST_job:
     name: SAST
     runs-on: ubuntu-latest
     strategy:
@@ -21,8 +17,8 @@ jobs:
         node-version: [14.x]
     steps:
       - name: Test
+        uses: actions/checkout@v2
         run: docker-compose -f docker-compose.yml up -d mongo
-        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
