@@ -68,8 +68,8 @@ jobs:
         tags: goof:develop
     - name: Docker bench security
       run: |-
-          git clone https://github.com/docker/docker-bench-security.git
           sudo rm -rf docker-bench-security/
+          git clone https://github.com/docker/docker-bench-security.git
           sudo sh docker-bench-security/docker-bench-security.sh -i goof:develop -p
     - name: Run Snyk
       continue-on-error: true
