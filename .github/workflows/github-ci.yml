@@ -69,7 +69,8 @@ jobs:
     - name: Docker bench security
       run: |-
           git clone https://github.com/docker/docker-bench-security.git
-          sudo sh docker-bench-security.sh -i goof:develop -p
+          sudo rm -rf docker-bench-security/
+          sudo sh docker-bench-security/docker-bench-security.sh -i goof:develop -p
     - name: Run Snyk
       continue-on-error: true
       uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
