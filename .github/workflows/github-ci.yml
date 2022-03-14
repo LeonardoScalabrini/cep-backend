@@ -28,18 +28,13 @@ jobs:
         service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
     - run: |
         gcloud auth configure-docker
-    - name: Image
-      run: |-
-        docker build -t $IMAGE_NAME:$GITHUB_SHA .
-      env:
-       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Build Docker Image
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: false
         load: true
-        tags: $IMAGE_NAME:$GITHUB_SHA
+        tags: '$IMAGE_NAME:$GITHUB_SHA'
       env:
        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     - name: Docker bench security
