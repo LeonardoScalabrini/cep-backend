@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci
-      - run: npm audit --audit-level=moderate
       - uses: docker/build-push-action@v2
         with:
           push: false
