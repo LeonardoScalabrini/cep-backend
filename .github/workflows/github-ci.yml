@@ -5,8 +5,6 @@ on:
     branches: [ master ]
 
 jobs:
-  Build:
-    uses: ./.github/workflows/build-ci.yml
   Test:
     needs: [Build]
     uses: ./.github/workflows/TEST.yml
