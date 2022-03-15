@@ -8,7 +8,7 @@ jobs:
   Test:
     uses: ./.github/workflows/TEST.yml
   Sast:
-    uses: ./.github/workflows/sast.yml
+    uses: ./.github/workflows/SAST.yml
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
