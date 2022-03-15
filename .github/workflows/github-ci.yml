@@ -12,18 +12,13 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  ContainerScanSecurity:
-    uses: ./.github/workflows/container-scan-security.yml
+  Scan:
+    uses: ./.github/workflows/scan.yml
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  IaC:
-    needs: [Sast, Test, ContainerScanSecurity]
-    uses: ./.github/workflows/iac.yml
-    secrets:
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   Deploy:
-    needs: [Sast, Test, ContainerScanSecurity, IaC]
+    needs: [Sast, Test, Scan]
     uses: ./.github/workflows/deploy.yml
     secrets:
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
