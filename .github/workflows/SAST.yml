@@ -16,7 +16,6 @@ jobs:
         node-version: [14.x]
     name: SAST
     steps:
-      - uses: actions/checkout@v2
       - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

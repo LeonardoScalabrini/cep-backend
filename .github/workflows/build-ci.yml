@@ -1,4 +1,4 @@
-name: Test workflow
+name: Build workflow
 
 on:
   workflow_call:
@@ -9,9 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
-    name: Test
+    name: Build
     steps:
       - uses: actions/checkout@v2
-      - run: docker-compose -f docker-compose.yml up -d mongo
-      - run: npm test
-      - run: docker-compose -f docker-compose.yml down
+      - run: npm ci
