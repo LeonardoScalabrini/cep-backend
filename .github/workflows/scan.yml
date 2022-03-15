@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Scan
     steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
       - uses: docker/build-push-action@v2
         with:
           push: false
@@ -24,7 +26,7 @@ jobs:
           cd docker-bench-security
           cat > output.txt
           sudo sh docker-bench-security.sh -i image:tag -p -l output.txt
-          grep "[INFO] Score: 5" output.txt || echo "score is greater than five" && exit 1
+          if [[ grep "[INFO] Score: 5" output.txt ]] else echo "score is greater than five" && exit 1 fi
           cd ..
       - uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
         continue-on-error: false

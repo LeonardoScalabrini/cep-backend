@@ -12,6 +12,7 @@ jobs:
     name: Test
     steps:
       - uses: actions/checkout@v2
+      - run: npm ci
       - run: docker-compose -f docker-compose.yml up -d mongo
       - run: npm test
       - run: docker-compose -f docker-compose.yml down
