@@ -5,90 +5,29 @@ on:
     branches: [ master ]
 
 jobs:
-  TEST:
-    uses: ./.github/workflows/TEST.yml
-  SAST:
-    uses: ./.github/workflows/SAST.yml
+  Test:
+    uses: ./.github/workflows/test.yml
+  Sast:
+    uses: ./.github/workflows/sast.yml
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  cd:
-    needs: [SAST, TEST]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - uses: google-github-actions/setup-gcloud@master
-      with:
-        service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
-        service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-    - run: |
-        gcloud auth configure-docker
-    - name: Build Docker Image
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        push: false
-        load: true
-        tags: ${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-    - name: Docker bench security
-      run: |-
-          sudo rm -rf docker-bench-security
-          git clone https://github.com/docker/docker-bench-security.git
-          cd docker-bench-security
-          sudo sh docker-bench-security.sh -i $IMAGE_NAME -p
-          cd ..
-      env:
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-    - name: Run Snyk
-      continue-on-error: true
-      uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
-      env:
-        SNYK_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-      with:
-        image: $IMAGE_NAME:$GITHUB_SHA
-        args: --severity-threshold=medium --file=Dockerfile
-    - name: Tag
-      run: |-
-        docker tag $IMAGE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
-      env:
-       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-       PROJECT_ID: ${{ secrets.PROJECT_ID }}
-    - name: Build
-      run: |-
-        docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
-      env:
-       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-       PROJECT_ID: ${{ secrets.PROJECT_ID }}
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-    - name: Terraform Init
-      run: terraform init
-    - name: Terraform fmt
-      run: terraform fmt -diff -check
-    - name: Terraform Plan
-      run: terraform plan
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-    - uses: google-github-actions/setup-gcloud@master
-      with:
-        service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
-        service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-    - name: Update Config
-      run: |-
-        gcloud config set project $PROJECT_ID
-      env:
-       PROJECT_ID: ${{ secrets.PROJECT_ID }}
-    - name: Update Image
-      run: |-
-        gcloud run deploy $IMAGE_NAME --image gcr.io/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA --region $REGION
-      env:
-       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-       PROJECT_ID: ${{ secrets.PROJECT_ID }}
-       REGION: ${{ secrets.REGION }}
+  ContainerScanSecurity:
+    uses: ./.github/workflows/container-scan-security.yml
+    secrets:
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  IaC:
+    needs: [Sast, Test, ContainerScanSecurity]
+    uses: ./.github/workflows/iac.yml
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+  Deploy:
+    needs: [Sast, Test, ContainerScanSecurity, IaC]
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      GCR_EMAIL_ACCOUNT: ${{ secrets.GCR_EMAIL_ACCOUNT }}
+      GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+      REGION: ${{ secrets.REGION }}
