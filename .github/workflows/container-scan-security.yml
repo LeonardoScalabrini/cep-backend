@@ -7,7 +7,6 @@ on:
         required: true
       IMAGE_NAME:
         required: true
-      
 
 jobs:
   reusable_workflow_job:
@@ -20,12 +19,12 @@ jobs:
           push: false
           load: true
           tags: image:tag
-        run: |-
-            sudo rm -rf docker-bench-security
-            git clone https://github.com/docker/docker-bench-security.git
-            cd docker-bench-security
-            sudo sh docker-bench-security.sh -i image:tag -p
-            cd ..
+      - run: |-
+          sudo rm -rf docker-bench-security
+          git clone https://github.com/docker/docker-bench-security.git
+          cd docker-bench-security
+          sudo sh docker-bench-security.sh -i image:tag -p
+          cd ..
       - uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
         continue-on-error: false
         env:
