@@ -24,7 +24,7 @@ jobs:
           git clone https://github.com/docker/docker-bench-security.git
           cd docker-bench-security
           mkdir output.txt
-          sudo sh docker-bench-security.sh -i image:tag -p -f output.txt
+          sudo sh docker-bench-security.sh -i image:tag -p -l output.txt
           grep "[INFO] Score: 1" output.txt || exit 1
           cd ..
       - uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
