@@ -17,8 +17,13 @@ jobs:
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  Deploy:
+  IaC:
     needs: [Sast, Test, Scan]
+    uses: ./.github/workflows/iac.yml
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+  Deploy:
+    needs: [Sast, Test, Scan, IaC]
     uses: ./.github/workflows/deploy.yml
     secrets:
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
