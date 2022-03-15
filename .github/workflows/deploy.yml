@@ -17,9 +17,13 @@ on:
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      - run: npm ci
       - uses: google-github-actions/setup-gcloud@master
         with:
           service_account_email: ${{ secrets.GCR_EMAIL_ACCOUNT }}
