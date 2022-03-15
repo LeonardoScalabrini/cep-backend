@@ -6,7 +6,7 @@ on:
 
 jobs:
   Test:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/TEST.yml
   Sast:
     uses: ./.github/workflows/sast.yml
     secrets:
