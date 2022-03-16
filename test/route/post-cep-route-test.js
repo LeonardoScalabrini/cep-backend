@@ -14,6 +14,7 @@ describe('POST /api/v1/cep', () => {
       .send({cep: '523563', cidade: 'Maringá'})
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
+      .expect('Content-Security-Policy', "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
       .expect(200)
       .end((err, res) => {
         assert.isNotNull(res.body.id)
@@ -28,6 +29,7 @@ describe('POST /api/v1/cep', () => {
       .send({cep: '121426', cidade: 'Maringá'})
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
+      .expect('Content-Security-Policy', "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
       .expect(500)
       .end(function (err, res) {
         assert.equal(res.body, 'O campo CEP não deve possuir nenhum dígito repetitivo alternado em pares')
