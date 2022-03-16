@@ -1,0 +1,17 @@
+name: DAST workflow
+
+on:
+  workflow_call:
+    secrets:
+      CEP_BACKEND_HOST:
+        required: true
+
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    name: Dast
+    steps:
+      - uses: zaproxy/action-full-scan@v0.3.0
+        with:
+            target: ${{ secrets.CEP_BACKEND_HOST }}
+            fail_action: true
