@@ -32,6 +32,7 @@ jobs:
       GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
       REGION: ${{ secrets.REGION }}
   Dast:
+    needs: [Deploy]
     uses: ./.github/workflows/dast.yml
     secrets:
       CEP_BACKEND_HOST: ${{ secrets.CEP_BACKEND_HOST }}
