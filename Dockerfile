@@ -1,5 +1,6 @@
 FROM node:bullseye-slim
 LABEL maintainer="leonardo_scalabrini@hotmail.com"
+RUN apt-get update -y && apt-get upgrade -y
 RUN useradd -ms /bin/bash cep-backend
 USER cep-backend
 ENV PORT=9090
