@@ -1,17 +1,16 @@
 const { PORT } = require('./config.js')
-const express = require('express')
 const helmet = require('helmet')
-const cors = require('cors')
+const express = require('express')
 const bodyParser = require('body-parser')
+const ALLOWED_METHODS = ['GET', 'POST']
 
 module.exports = () => {
   const app = express()
   app.use(helmet())
-  app.use(cors({
-    methods: ['GET','POST']
-}));
   app.use((req, res, next) => {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    if (!ALLOWED_METHODS.includes(req.method)) 
+      res.status(405).json('Método não permitido!')
     next()
   })
   app.use(bodyParser.json())

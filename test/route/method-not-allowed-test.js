@@ -7,6 +7,10 @@ describe('OPTIONS *', () => {
   it('responds with json', () => {
     request(express)
       .options('/')
-      .expect(204)
+      .expect(405)
+      .end(function (err, res) {
+        assert.equal(res.body, 'Método não permitido!')
+        if (err) return done(err)
+      })
   })
 })
