@@ -1,6 +1,6 @@
 const { PORT } = require('./config.js')
-const express = require('express')
 const helmet = require('helmet')
+const express = require('express')
 const bodyParser = require('body-parser')
 const ALLOWED_METHODS = ['GET', 'POST']
 
