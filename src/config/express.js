@@ -11,6 +11,7 @@ module.exports = () => {
   require('./db')
   require('../route/get-cep-route')(app)
   require('../route/post-cep-route')(app)
+  require('../route/get-not-found')(app)
 
   return app
 }
