@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Dast
     steps:
-      - uses: zaproxy/action-full-scan@v0.3.0
+      - uses: zaproxy/action-api-scan@v0.1.0
         with:
             target: ${{ secrets.CEP_BACKEND_HOST }}
-            fail_action: true
+            fail_action: false
