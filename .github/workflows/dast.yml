@@ -14,4 +14,4 @@ jobs:
       - uses: zaproxy/action-api-scan@v0.1.0
         with:
             target: ${{ secrets.CEP_BACKEND_HOST }}
-            fail_action: false
+            fail_action: true

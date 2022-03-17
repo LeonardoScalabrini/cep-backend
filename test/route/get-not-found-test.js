@@ -7,7 +7,7 @@ describe('GET *', () => {
   it('responds with json', () => {
     request(express)
       .get('/')
-      .expect(404)
+      .expect(204)
       .end(function (err, res) {
         assert.equal(res.body, 'Não encontrado!')
         if (err) return done(err)
