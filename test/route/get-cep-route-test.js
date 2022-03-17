@@ -19,7 +19,6 @@ describe('GET /api/v1/cep', () => {
       .get('/api/v1/cep')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect('Content-Security-Policy', "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
       .expect(200)
       .end(function (err, res) {
         assert.equal(res.body[0]._id, id)

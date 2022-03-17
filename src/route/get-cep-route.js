@@ -6,9 +6,7 @@ module.exports = app => {
     async (req, res) => {
       if (database.stringConnection) {
         await CepRepository.getAll((error, docs) => {
-          res.status(200)
-          .header('Content-Security-Policy', "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
-          .json(docs)
+          res.status(200).json(docs)
         })
       } else {
         res.status(200).json('Aqui 18')
