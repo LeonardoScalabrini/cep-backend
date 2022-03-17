@@ -5,7 +5,7 @@ module.exports =
     }
 
     validate (req) {
-      this.collectValidator.map(v => v.validate(req))
+      this.collectValidator.forEach(v => v.validate(req))
     }
 
     next (validator) {
