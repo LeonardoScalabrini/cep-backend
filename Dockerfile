@@ -1,4 +1,4 @@
-FROM node:bullseye-slim
+FROM node:lts-bullseye-slim
 LABEL maintainer="leonardo_scalabrini@hotmail.com"
 RUN apt-get update -y && apt-get upgrade -y
 RUN useradd -ms /bin/bash cep-backend
